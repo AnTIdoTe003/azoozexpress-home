@@ -1,95 +1,61 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client'
+import Image from "next/image";
+import HomeBanner from "@/assets/home-banner.png";
+import "./style.scss";
+import SvgLocation from "@/assets/icons/SvgLocation";
+// import { useSpring, animated } from '@react-spring/web'
+import { motion, useAnimation } from "framer-motion";
+import { useEffect } from "react";
 
 export default function Home() {
+  const controls = useAnimation();
+  useEffect(() => {
+    controls.start({ x: 0 });
+  },[controls])
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main>
+      <div className="home-wrapper">
+        <div className="home-container">
+          <div className="home-content">
+            <div className="gradient-overlay"></div>
+            <Image className="home-banner" src={HomeBanner} alt="Home" />
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={controls}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="home-text1"
+            >
+              <p>FAST AND RELIABLE MOVING SOLUTIONS</p>
+            </motion.div>
+            <div className="home-text2">
+              <p>
+                We Cater To All Of Your Moving & Packaging Needs, Ensuring A
+                Commitment Towards Fast, Reliable And 100% Delivery Assurance.
+              </p>
+            </div>
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={controls}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="home-quotation"
+            >
+              <div className="home-inputs">
+                <div className="home-input-wrapper">
+                  <input type="text" placeholder="Enter pickup location" />
+                  <SvgLocation />
+                </div>
+                <div className="home-input-wrapper">
+                  <input type="text" placeholder="Enter drop location" />
+                  <SvgLocation />
+                </div>
+              </div>
+              <div className="home-quotation-btn">
+                <button>Get Quotation</button>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
     </main>
-  )
+  );
 }
