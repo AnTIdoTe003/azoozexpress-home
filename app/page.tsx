@@ -10,17 +10,13 @@ import about2 from "@/assets/about2.jpg";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { GiWeight } from "react-icons/gi";
 import { servicesData } from "@/constants/services";
-import Slider from "react-slick";
 import { testimonials } from "@/constants/testimonial";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/scss/navigation";
+import "swiper/scss";
 export default function Home() {
   const controls = useAnimation();
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 1,
-  };
   useEffect(() => {
     controls.start({ x: 0 });
   }, [controls]);
@@ -154,21 +150,30 @@ export default function Home() {
             <div className="testimonials-header">
               <h3>What our customer say</h3>
             </div>
-            <Slider {...settings} className="testimonial-carousel">
+            <Swiper
+              navigation={true}
+              modules={[Navigation]}
+              pagination={{ clickable: true }}
+              autoplay={{ delay: 2000 }}
+              loop
+              className="testimonialSlider"
+            >
               {testimonials.map((testimonial) => (
-                <div key={testimonial.id} className="testimonial-item">
-                  <Image
-                    className="testimonial-image"
-                    src={testimonial.image}
-                    width={70}
-                    height={70}
-                    alt={testimonial.name}
-                  />
-                  <p className="testimonial-text">{testimonial.text}</p>
-                  <p className="testimonial-author">{testimonial.name}</p>
-                </div>
+                <SwiperSlide key={testimonial.id}>
+                  <div className="testimonial">
+                    <Image
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="testimonialImage"
+                      width={100}
+                      height={100}
+                    />
+                    <h3 className="testimonialName">{testimonial.name}</h3>
+                    <p className="testimonialText">{testimonial.text}</p>
+                  </div>
+                </SwiperSlide>
               ))}
-            </Slider>
+            </Swiper>
           </div>
         </div>
       </div>

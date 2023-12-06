@@ -1,8 +1,9 @@
-import React from "react";
+'use client'
+import React, { useState } from "react";
 import Image from "next/image";
 import "./style.scss";
 import Link from "next/link";
-
+import { MdOutlineMenu } from "react-icons/md";
 type Props = {};
 
 type NavMenuInterface = {
@@ -11,6 +12,7 @@ type NavMenuInterface = {
 }[];
 
 const Navbar = (props: Props) => {
+  const [isOpen, setIsOpen] = useState(false)
   const navMenu: NavMenuInterface = [
     {
       title: "Home",
@@ -43,14 +45,33 @@ const Navbar = (props: Props) => {
             />
           </div>
           <div className="nav-menu">
+            {navMenu.map((ele, index) => {
+              return (
+                <>
+                  <Link key={index} href={ele.slug} aria-label={ele.title}>
+                    {ele.title}
+                  </Link>
+                </>
+              );
+            })}
+          </div>
+          <div className="nav-menu-mob">
+            <button onClick={() => setIsOpen(!isOpen)}>
+              <MdOutlineMenu />
+            </button>
             {
-              navMenu.map((ele,index) => {
+              isOpen &&
+            <div className="nav-menu-mob-details">
+              {navMenu.map((ele, index) => {
                 return (
                   <>
-                  <Link key={index} href={ele.slug} aria-label={ele.title}>{ele.title}</Link>
+                    <Link key={index} href={ele.slug} aria-label={ele.title}>
+                      {ele.title}
+                    </Link>
                   </>
-                )
-              })
+                );
+              })}
+            </div>
             }
           </div>
         </div>
