@@ -4,6 +4,7 @@ import Image from "next/image";
 import "./style.scss";
 import Link from "next/link";
 import { MdOutlineMenu } from "react-icons/md";
+import { RxCross2 } from "react-icons/rx";
 type Props = {};
 
 type NavMenuInterface = {
@@ -57,22 +58,21 @@ const Navbar = (props: Props) => {
           </div>
           <div className="nav-menu-mob">
             <button onClick={() => setIsOpen(!isOpen)}>
-              <MdOutlineMenu />
+              {isOpen ? <RxCross2 /> : <MdOutlineMenu />}
             </button>
-            {
-              isOpen &&
-            <div className="nav-menu-mob-details">
-              {navMenu.map((ele, index) => {
-                return (
-                  <>
-                    <Link key={index} href={ele.slug} aria-label={ele.title}>
-                      {ele.title}
-                    </Link>
-                  </>
-                );
-              })}
-            </div>
-            }
+            {isOpen && (
+              <div className="nav-menu-mob-details">
+                {navMenu.map((ele, index) => {
+                  return (
+                    <>
+                      <Link key={index} href={ele.slug} aria-label={ele.title}>
+                        {ele.title}
+                      </Link>
+                    </>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>
